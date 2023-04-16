@@ -25,13 +25,17 @@ if(results.length === 0){
   results.forEach((movie)=>{
     let date =movie.release_date.split("-");
     let year = date[0];
+    let time = toHoursAndMinutes(movie.runtime);
+    let hr = time.hours;
+    let min = time.minutes; 
     para.innerHTML = ``
      table.innerHTML +=  `
        <tr class="bg-white border-b dark:bg-white-200 text-gray-900 dark:border-gray-700">
        <td class="px-6 py-3">${movie.id}</td>
        <td class="px-6 py-3 flex"> <div><img class="px-2 inline-block" src="${'https://image.tmdb.org/t/p/w45' + movie.poster_path}" />
-            </div>  <div><div class="font-semibold text-xl text-blue-500">
-            ${movie.title}</div><button class="bg-gray-100 border-black-500 border-2 text-blackfont-bold text-center p-[1px] mr-3 rounded">${movie.certification}</button>  ${movie.genres.toString(" , ")}</div></td>
+            </div>  <div><div class="font-semibold text-xl text-blue-500 pb-2">
+            ${movie.title}</div>
+            <button class="bg-gray-100 border-black-500 border-2 text-blackfont-bold text-center p-[1px] mr-2 rounded">${movie.certification}</button> ${movie.genres.toString(" , ")} • ${hr}h ${min}m</div></td>
        <td class="px-6 py-3">${year}</td>
        </tr>
        `;
@@ -40,6 +44,15 @@ if(results.length === 0){
       })
     }
 }
+
+function toHoursAndMinutes(totalMinutes) {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  return { hours, minutes };
+}
+
+console.log(toHoursAndMinutes(100));
 
 
     
